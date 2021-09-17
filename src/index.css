@@ -4,15 +4,55 @@ body {
   justify-content: center;
 }
 
+.container {
+  padding: 20px 0;
+  width: 320px;
+}
+
 .todolist {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
   list-style: none;
   cursor: pointer;
 }
 
+.todolist li {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 250px;
+  padding: 10px 0;
+}
+
 ul {
   padding-inline-start: 0 !important;
+}
+
+.todo-input {
+  padding: 5px;
+  width: 100%;
+  outline: none;
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.add-todo-btn {
+  width: 60px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  height: 30px;
+  width: 56px;
+  cursor: pointer;
+}
+
+.error-msg {
+  font-size: 12px;
+  color: red;
 }
