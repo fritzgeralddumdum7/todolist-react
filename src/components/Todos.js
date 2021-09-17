@@ -3,17 +3,37 @@ import TodoItem from './TodoItem'
 import PropTypes from 'prop-types'
 
 class Todos extends Component {
+  constructor (props) {
+    super(props)
+    this.props = props
+  }
   render () {
-    return this.props.todos.map(todo => {
+    const {
+        todos,
+        setCompleted,
+        removeTodo
+    } = this.props
+
+    const ListEmpty = () => {
       return (
-        <TodoItem 
-          key={todo.id} 
-          todo={todo}
-          removeTodo={this.props.removeTodo}
-          setCompleted={this.props.setCompleted}
-        />
+        <div className="todolist center">
+          <li>No items left</li>
+        </div>
       )
-    })
+    }
+
+    return (
+        todos.length ? todos.map(todo => {
+          return (
+            <TodoItem 
+              key={todo.id} 
+              todo={todo}
+              removeTodo={removeTodo}
+              setCompleted={setCompleted}
+            />
+          )
+        }) : <ListEmpty />
+    )
   }
 }
 

@@ -1,37 +1,40 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Todos from './components/Todos'
 import Form from './components/Form';
 
-class App extends React.Component {
-  // local states
-  state = {
-    todos: [
-      {
-        id: 1,
-        title: 'Finish todolist on reactapp',
-        completed: false
-      }, {
-        id: 2,
-        title: 'Do some laundries',
-        completed: false
-      }, {
-        id: 3,
-        title: 'Prepare for tomorrows event',
-        completed: false
-      }, {
-        id: 4,
-        title: 'This is a very long to do list where it will be truncated.',
-        completed: false
-      }
-    ],
-    todo: '',
-    isFormValid: null
-  };
+class App extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      todos: [
+        {
+          id: 1,
+          title: 'Finish todolist on reactapp',
+          completed: false
+        }, {
+          id: 2,
+          title: 'Do some laundries',
+          completed: false
+        }, {
+          id: 3,
+          title: 'Prepare for tomorrows event',
+          completed: false
+        }, {
+          id: 4,
+          title: 'This is a very long to do list where it will be truncated.',
+          completed: false
+        }
+      ],
+      todo: '',
+      isFormValid: null
+    }
+  }
 
   handleSubmit = (e) => {
     e.preventDefault()
 
-    if (this.state.isFormValid === null) {
+    if (this.state.isFormValid === null || this.state.isFormValid === false || !this.state.todo.trim()) {
       return this.setState({
         isFormValid: false
       })
@@ -54,28 +57,26 @@ class App extends React.Component {
   }
 
   setTodo = (e) => {
-    let value = e.target.value
     this.setState({ 
-      todo: value,
-      isFormValid: value.length ? true : false
+      todo: e.target.value,
+      isFormValid: e.target.value ? true : false
     })
   }
 
   removeTodo = (id) => {
-    this.setState({
-      todos: this.state.todos.filter(todo => todo.id !== id)
-    })
+    const todos = this.state.todos.filter(todo => todo.id !== id)
+    this.setState({ todos: todos })
   }
 
   setCompleted = (id) => {
-    this.setState({
-      todos: this.state.todos.map(todo => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed
-        }
-        return todo
-      })
+    const todos = this.state.todos.map(todo => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed
+      }
+      return todo
     })
+
+    this.setState({ todos: todos })
   }
 
   render () {
